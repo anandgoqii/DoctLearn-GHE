@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DoctLearn by GOQii HealthEngage</title>
+<meta name="description" content="DoctLearn is a case-based learning platform for healthcare professionals by GOQii HealthEngage.">
+<meta property="og:title" content="DoctLearn by GOQii HealthEngage">
+<meta property="og:description" content="DoctLearn is a case-based learning platform for healthcare professionals by GOQii HealthEngage.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#2BC48A;
+  --green-hover:#24B07B;
+  --green-text:#117A52;
+  --green-soft:#E9FAF3;
+  --green-soft-dark:rgba(43,196,138,0.14);
+  --green-border:rgba(43,196,138,0.38);
+
+  --navy:#0F172A;
+  --deep-navy:#0B1220;
+  --navy-surface:#131D33;
+  --navy-border:#1E293B;
+  --navy-text:#CBD5E1;
+  --navy-muted:#94A3B8;
+
+  --bg:#F8FAFB;
+  --card:#FFFFFF;
+  --border:#E8EDF2;
+  --text-secondary:#64748B;
+
+  --radius-sm:8px;
+  --radius-md:12px;
+  --radius-lg:16px;
+  --shadow-card:0 1px 2px rgba(15,23,42,0.04),0 4px 14px rgba(15,23,42,0.03);
+  --shadow-card-hover:0 4px 12px rgba(15,23,42,0.06),0 10px 24px rgba(15,23,42,0.04);
+  --font:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);
+  background:var(--bg);
+  color:var(--navy);
+  line-height:1.6;
+  font-size:16px;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+a:focus-visible,button:focus-visible{
+  outline:2px solid var(--green);
+  outline-offset:3px;
+}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+h1,h2,h3{
+  font-family:var(--font);
+  line-height:1.2;
+  letter-spacing:-0.02em;
+  text-wrap:balance;
+}
+h1{font-size:clamp(2.15rem,4.4vw,3.35rem);font-weight:700;line-height:1.14}
+h2{font-size:clamp(1.65rem,3vw,2.25rem);font-weight:600}
+h3{font-size:1.15rem;font-weight:600;line-height:1.35;letter-spacing:-0.01em}
+p{max-width:62ch}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--green-text);
+}
+.eyebrow::before{
+  content:"";
+  width:18px;
+  height:2px;
+  border-radius:2px;
+  background:var(--green);
+  flex-shrink:0;
+}
+.lede{font-size:1.08rem;color:var(--text-secondary);line-height:1.65;font-weight:400}
+.stack{display:flex;flex-direction:column;gap:18px}
+section{padding:80px 0;scroll-margin-top:76px}
+
+/* Buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding:13px 24px;
+  min-height:46px;
+  border-radius:var(--radius-sm);
+  font-family:var(--font);
+  font-size:.95rem;
+  font-weight:600;
+  text-decoration:none;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:background-color .18s cubic-bezier(.16,1,.3,1),border-color .18s cubic-bezier(.16,1,.3,1),color .18s cubic-bezier(.16,1,.3,1),transform .18s cubic-bezier(.16,1,.3,1);
+  white-space:nowrap;
+}
+.btn-main{background:var(--green);color:var(--navy)}
+.btn-main:hover{background:var(--green-hover);transform:translateY(-1px)}
+.btn-ghost{background:transparent;border-color:rgba(203,213,225,0.28);color:#FFFFFF}
+.btn-ghost:hover{border-color:var(--green);background:rgba(43,196,138,0.08);color:#FFFFFF}
+
+/* Header & Navigation */
+.nav{
+  position:fixed;
+  top:14px;
+  left:50%;
+  transform:translateX(-50%);
+  width:calc(100% - 48px);
+  max-width:1112px;
+  z-index:50;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  box-shadow:0 8px 24px rgba(15,23,42,0.08);
+  transition:transform .28s cubic-bezier(.16,1,.3,1),opacity .22s ease;
+}
+.nav.nav-hidden{
+  transform:translate(-50%,calc(-100% - 24px));
+  opacity:0;
+  pointer-events:none;
+}
+.nav .wrap{
+  max-width:none;
+  margin:0;
+  padding:10px 22px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  min-height:66px;
+  position:relative;
+}
+.logos{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex-shrink:0;
+}
+.logos img{height:34px;width:auto;object-fit:contain}
+.nav .logos img{height:44px}
+.nav nav{
+  display:flex;
+  align-items:center;
+  gap:26px;
+  font-size:.9rem;
+  font-weight:500;
+}
+.nav nav a{
+  text-decoration:none;
+  color:var(--navy);
+  padding:8px 2px;
+  position:relative;
+  white-space:nowrap;
+  transition:color .18s ease;
+}
+.nav nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:2px;
+  height:2px;
+  border-radius:2px;
+  background:var(--green);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform .2s cubic-bezier(.16,1,.3,1);
+}
+.nav nav a:hover,
+.nav nav a.active{
+  color:var(--green-text);
+}
+.nav nav a:hover::after,
+.nav nav a.active::after{
+  transform:scaleX(1);
+}
+.nav-toggle{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  width:42px;
+  height:42px;
+  border-radius:var(--radius-sm);
+  border:1px solid var(--border);
+  background:var(--card);
+  color:var(--navy);
+  cursor:pointer;
+  transition:border-color .18s ease,background-color .18s ease,color .18s ease;
+}
+.nav-toggle:hover{
+  border-color:var(--green);
+  background:var(--green-soft);
+  color:var(--green-text);
+}
+.nav-toggle .icon-close{display:none}
+.nav-toggle[aria-expanded="true"] .icon-menu{display:none}
+.nav-toggle[aria-expanded="true"] .icon-close{display:block}
+
+/* Hero Section */
+.hero{
+  background:var(--deep-navy);
+  background-image:radial-gradient(ellipse 65% 55% at 85% 15%,rgba(43,196,138,0.10),transparent 70%);
+  color:#FFFFFF;
+  padding:132px 0 88px;
+  border-bottom:1px solid var(--navy-border);
+}
+.hero .wrap{
+  display:grid;
+  grid-template-columns:1fr 1.12fr;
+  gap:48px;
+  align-items:center;
+}
+.hero .eyebrow{color:var(--green)}
+.hero .lede{color:var(--navy-text)}
+.cta{display:flex;gap:14px;flex-wrap:wrap;padding-top:6px}
+
+/* Hero Live Event Illustration */
+.mock{
+  background:var(--navy);
+  border:1px solid var(--navy-border);
+  border-radius:var(--radius-lg);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  font-size:.82rem;
+  box-shadow:0 24px 48px rgba(0,0,0,0.34);
+}
+.mock-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:2px 4px 8px;
+  border-bottom:1px solid var(--navy-border);
+  color:var(--navy-text);
+  font-weight:500;
+}
+.mock-title{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+}
+.mock-title svg{color:var(--green);flex-shrink:0}
+.timer{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--green-soft-dark);
+  border:1px solid var(--green-border);
+  color:var(--green);
+  font-weight:600;
+  font-size:.8rem;
+  padding:4px 12px;
+  border-radius:999px;
+  font-variant-numeric:tabular-nums;
+}
+.mock-grid{
+  display:grid;
+  grid-template-columns:1fr 1.25fr 1fr;
+  gap:12px;
+}
+.tile{
+  background:var(--deep-navy);
+  border:1px solid var(--navy-border);
+  border-radius:var(--radius-md);
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+  min-width:0;
+}
+.stream{
+  aspect-ratio:4/3;
+  border-radius:var(--radius-sm);
+  background:linear-gradient(145deg,#182641,#0B1220);
+  border:1px solid var(--navy-border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+.stream::after{
+  content:"";
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:rgba(43,196,138,0.16);
+  border:1px solid rgba(43,196,138,0.45);
+}
+.stream::before{
+  content:"";
+  position:absolute;
+  z-index:1;
+  margin-left:3px;
+  border-left:11px solid var(--green);
+  border-top:7px solid transparent;
+  border-bottom:7px solid transparent;
+}
+.live{
+  position:absolute;
+  top:7px;
+  left:7px;
+  background:var(--green);
+  color:var(--navy);
+  font-weight:700;
+  font-size:.66rem;
+  letter-spacing:.06em;
+  padding:2px 7px;
+  border-radius:4px;
+}
+.chatline{height:7px;border-radius:4px;background:var(--navy-border)}
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.skin{
+  aspect-ratio:1;
+  border-radius:var(--radius-sm);
+  background:#C99A7E;
+  border:1px solid rgba(255,255,255,0.08);
+  position:relative;
+  overflow:hidden;
+}
+.skin i{position:absolute;border-radius:50%;background:#8E3B3B;opacity:.82}
+.skin.a i{width:46%;height:40%;left:26%;top:30%}
+.skin.b i{width:24%;height:20%;left:38%;top:40%;opacity:.55}
+.cap{color:var(--navy-muted);font-size:.72rem;text-align:center;font-weight:500;margin-top:4px}
+.opt{
+  border:1px solid var(--navy-border);
+  background:var(--navy-surface);
+  border-radius:var(--radius-sm);
+  padding:7px 9px;
+  color:var(--navy-text);
+  font-size:.78rem;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:6px;
+}
+.opt::after{
+  content:"";
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  border:1.5px solid var(--navy-muted);
+  flex-shrink:0;
+}
+.opt.on{
+  border-color:var(--green);
+  background:var(--green-soft-dark);
+  color:#FFFFFF;
+}
+.opt.on::after{
+  border-color:var(--green);
+  background:var(--green);
+  box-shadow:inset 0 0 0 2px var(--deep-navy);
+}
+.submit{
+  margin-top:auto;
+  background:var(--green);
+  color:var(--navy);
+  text-align:center;
+  border-radius:var(--radius-sm);
+  padding:8px 10px;
+  font-size:.78rem;
+  font-weight:600;
+}
+.note{font-size:.78rem;color:var(--navy-muted)}
+
+/* Section Headers & Alternating Bands */
+.head{display:flex;flex-direction:column;gap:12px;margin-bottom:40px}
+.band{
+  background:var(--card);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+/* Grids & Cards */
+.grid{display:grid;gap:24px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  box-shadow:var(--shadow-card);
+  transition:border-color .2s ease,box-shadow .2s ease,transform .2s cubic-bezier(.16,1,.3,1);
+}
+.band .card{background:var(--bg)}
+.card:hover{
+  border-color:rgba(43,196,138,0.45);
+  box-shadow:var(--shadow-card-hover);
+  transform:translateY(-2px);
+}
+.card p{color:var(--text-secondary);font-size:.95rem;line-height:1.6}
+
+.card-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:4px;
+}
+.icon-box{
+  width:42px;
+  height:42px;
+  border-radius:10px;
+  background:var(--green-soft);
+  color:var(--green-text);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.icon-box svg{width:20px;height:20px}
+
+.tag{
+  align-self:flex-start;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  padding:4px 10px;
+  border-radius:6px;
+  background:var(--green-soft);
+  color:var(--green-text);
+  border:1px solid var(--green-border);
+}
+.tag.soon{
+  background:#F1F5F9;
+  color:#475569;
+  border-color:var(--border);
+}
+.num{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:var(--green-soft);
+  border:1px solid var(--green-border);
+  font-family:var(--font);
+  font-size:1.05rem;
+  font-weight:700;
+  color:var(--green-text);
+  font-variant-numeric:tabular-nums;
+}
+
+/* Split Layout & Feature List */
+.split{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center}
+.list{display:flex;flex-direction:column;gap:14px;padding:0;list-style:none}
+.list li{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:14px 16px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-md);
+  color:var(--text-secondary);
+  font-size:.95rem;
+  line-height:1.55;
+  box-shadow:0 1px 2px rgba(15,23,42,0.03);
+}
+.list-icon{
+  width:36px;
+  height:36px;
+  border-radius:var(--radius-sm);
+  background:var(--green-soft);
+  color:var(--green-text);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  margin-top:1px;
+}
+.list-icon svg{width:18px;height:18px}
+.list b{color:var(--navy);font-weight:600}
+
+/* Specialty & Integration Chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding-top:4px}
+.chip{
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  padding:7px 14px;
+  font-size:.86rem;
+  font-weight:500;
+  background:var(--card);
+  color:var(--text-secondary);
+}
+.chip.on{
+  background:var(--green-soft);
+  border-color:var(--green-border);
+  color:var(--green-text);
+  font-weight:600;
+}
+
+/* Report Mockup */
+.report{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  box-shadow:var(--shadow-card);
+}
+.report-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.bar-row{
+  display:grid;
+  grid-template-columns:116px 1fr;
+  gap:14px;
+  align-items:center;
+  font-size:.88rem;
+  font-weight:500;
+  color:var(--navy);
+}
+.bar-track{
+  width:100%;
+  height:12px;
+  border-radius:999px;
+  background:#F1F5F9;
+  overflow:hidden;
+}
+.bar{
+  height:100%;
+  border-radius:999px;
+  background:var(--green);
+}
+.bar.b2{opacity:.70}
+.bar.b3{opacity:.42}
+.small{font-size:.8rem;color:var(--text-secondary)}
+
+/* Dark Compliance Section */
+.dark{
+  background:var(--deep-navy);
+  color:#FFFFFF;
+  border-top:1px solid var(--navy-border);
+}
+.dark .eyebrow{color:var(--green)}
+.dark .lede{color:var(--navy-text)}
+.dark .card{
+  background:var(--navy);
+  border-color:var(--navy-border);
+  box-shadow:none;
+}
+.dark .card:hover{
+  border-color:rgba(43,196,138,0.45);
+  box-shadow:0 8px 24px rgba(0,0,0,0.28);
+}
+.dark .card h3{color:#FFFFFF}
+.dark .card p{color:var(--navy-text)}
+.dark .icon-box{
+  background:var(--green-soft-dark);
+  color:var(--green);
+}
+
+/* Closing CTA */
+.close{
+  background:var(--navy);
+  background-image:radial-gradient(ellipse 60% 80% at 90% 50%,rgba(43,196,138,0.10),transparent 70%);
+  color:#FFFFFF;
+  border-top:1px solid var(--navy-border);
+  padding:76px 0;
+}
+.close .wrap{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
+  gap:32px;
+  flex-wrap:wrap;
+}
+.close-copy{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  max-width:62ch;
+}
+.close-cta{
+  flex-shrink:0;
+}
+.close h2{color:#FFFFFF}
+.close .lede{color:var(--navy-text)}
+
+/* Footer */
+footer{
+  background:var(--card);
+  border-top:1px solid var(--border);
+  padding:44px 0 28px;
+  font-size:.875rem;
+  color:var(--text-secondary);
+}
+.footer-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:28px;
+  flex-wrap:wrap;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--border);
+}
+.footer-brand{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.footer-brand .logos img{height:24px}
+.footer-desc{
+  font-size:.88rem;
+  color:var(--text-secondary);
+}
+.footer-nav{
+  display:flex;
+  align-items:center;
+  gap:24px;
+  flex-wrap:wrap;
+  padding-top:4px;
+}
+.footer-nav a{
+  text-decoration:none;
+  color:var(--navy);
+  font-weight:500;
+  font-size:.88rem;
+  transition:color .18s ease;
+  white-space:nowrap;
+}
+.footer-nav a:hover{
+  color:var(--green-text);
+}
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  flex-wrap:wrap;
+  padding-top:20px;
+  font-size:.82rem;
+  color:var(--text-secondary);
+}
+
+/* Responsive Breakpoints */
+@media (max-width:960px){
+  .hero .wrap,.split{grid-template-columns:1fr;gap:36px}
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:1fr}
+}
+@media (max-width:768px){
+  section{padding:60px 0}
+  .hero{padding:112px 0 64px}
+  .nav{top:10px;width:calc(100% - 24px);border-radius:14px}
+  .nav .wrap{padding:10px 16px;min-height:60px}
+  .nav-toggle{display:inline-flex}
+  .nav nav{
+    display:none;
+    position:absolute;
+    top:calc(100% + 8px);
+    left:0;
+    right:0;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:12px 16px 16px;
+    flex-direction:column;
+    align-items:stretch;
+    gap:4px;
+    box-shadow:0 12px 24px rgba(15,23,42,0.12);
+  }
+  .nav nav.open{display:flex}
+  .nav nav a{
+    padding:12px 10px;
+    border-radius:var(--radius-sm);
+  }
+  .nav nav a::after{display:none}
+  .nav nav a:hover,.nav nav a.active{
+    background:var(--green-soft);
+    color:var(--green-text);
+  }
+}
+@media (max-width:560px){
+  .wrap{padding:0 18px}
+  section{padding:52px 0}
+  .g4,.g2{grid-template-columns:1fr}
+  .mock-grid{grid-template-columns:1fr}
+  .bar-row{grid-template-columns:1fr;gap:6px}
+  .logos{gap:10px}
+  .logos img{height:28px}
+  .nav .logos img{height:36px}
+  .cta .btn{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .btn,.card,.nav,.nav nav a,.nav nav a::after{transition:none}
+}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap">
+  <div class="logos"><img src="https://appcdn.goqii.com/storeimg/78608_1794911475.png" alt="GOQii HealthEngage"></div>
+  <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation menu">
+    <svg class="icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+    <svg class="icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+  </button>
+  <nav id="site-nav" aria-label="Sections"><a href="#modes">Modes</a><a href="#live">Live events</a><a href="#who">Who it is for</a><a href="#insight">Insight</a><a href="#trust">Compliance</a><a href="#contact">Contact</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="stack">
+    <p class="eyebrow">DoctLearn · GOQii HealthEngage</p>
+    <h1>Medical education that doctors do, not sit through</h1>
+    <p class="lede">DoctLearn is a case-based learning platform for healthcare professionals. Doctors diagnose real, de-identified cases against the clock, then an expert explains the answer, live or on demand.</p>
+    <div class="cta"><a class="btn btn-main" href="#contact">Request a demo</a><a class="btn btn-ghost" href="#modes">See how it works</a></div>
+  </div>
+  <div class="stack">
+    <div class="mock" role="img" aria-label="Illustration of the live event screen: presenter stream, side-by-side clinical images and timed questions">
+      <div class="mock-bar">
+        <span class="mock-title">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+          Live case discussion · Case 2
+        </span>
+        <span class="timer">04:32</span>
+      </div>
+      <div class="mock-grid">
+        <div class="tile"><div class="stream"><span class="live">LIVE</span></div><div class="chatline"></div><div class="chatline" style="width:70%"></div><div class="chatline" style="width:85%"></div></div>
+        <div class="tile"><div class="compare"><div><div class="skin a"><i></i></div><p class="cap">Week 0</p></div><div><div class="skin b"><i></i></div><p class="cap">Week 8</p></div></div><p class="cap">Zoom · annotate · compare</p></div>
+        <div class="tile"><div class="opt on">Diagnosis A</div><div class="opt">Diagnosis B</div><div class="opt">Diagnosis C</div><div class="submit">Review and submit</div></div>
+      </div>
+    </div>
+    <p class="note">Illustration of the live event screen, not a product screenshot.</p>
+  </div>
+</div></section>
+
+<section id="modes"><div class="wrap">
+  <div class="head"><p class="eyebrow">One case engine</p><h2>Three ways to run a case</h2><p class="lede">Author a case once. Use it in a live event, a timed challenge, or a self-paced path.</p></div>
+  <div class="grid g3">
+    <div class="card">
+      <div class="card-top">
+        <span class="tag">Live event</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></span>
+      </div>
+      <h3>Everyone, at the same time</h3>
+      <p>An expert presents on an embedded stream while participants work the same case under one synchronised timer. A moderator sets the pace and publishes the results.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="tag">Challenge</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      </div>
+      <h3>A weekly habit</h3>
+      <p>A case opens for a fixed window. Doctors submit when it suits them, then see the answer, the reasoning and where they rank.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="tag">Self-paced</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+      </div>
+      <h3>Practice on demand</h3>
+      <p>Past cases, recordings and case series joined into learning paths for a specialty or condition.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="live" class="band"><div class="wrap">
+  <div class="head"><p class="eyebrow">Live events</p><h2>How a live case runs</h2></div>
+  <div class="grid g4 steps">
+    <div class="card">
+      <div class="card-top">
+        <span class="num">1</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></span>
+      </div>
+      <h3>Join</h3>
+      <p>Participants sign in with a mobile number or email and a one-time code. No app install is needed on web.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="num">2</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></span>
+      </div>
+      <h3>Review</h3>
+      <p>Patient profile, history and high-resolution images sit beside the presenter's stream.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="num">3</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></span>
+      </div>
+      <h3>Decide</h3>
+      <p>Doctors pick a diagnosis and a treatment approach from standard lists before the timer ends. Answers save automatically.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="num">4</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></span>
+      </div>
+      <h3>Compare</h3>
+      <p>The moderator publishes results. Each doctor sees their own answer against the room, and the expert leads the discussion.</p>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap split">
+  <div class="stack">
+    <p class="eyebrow">Built for any specialty</p>
+    <h2>The right viewer for the right evidence</h2>
+    <p class="lede">Specialty packs configure the patient fields, viewer tools and answer lists for each field of medicine, so nothing is hard-wired to one domain.</p>
+    <div class="chips"><span class="chip on">Dermatology</span><span class="chip">Radiology</span><span class="chip">Cardiology</span><span class="chip">Pathology</span><span class="chip">Ophthalmology</span><span class="chip">General medicine</span></div>
+  </div>
+  <ul class="list">
+    <li>
+      <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></span>
+      <span><b>Clinical photographs.</b> Zoom, pan, annotate and compare dated images side by side.</span>
+    </li>
+    <li>
+      <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
+      <span><b>Imaging.</b> X-ray, CT and MRI with slice scrolling and contrast presets.</span>
+    </li>
+    <li>
+      <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></span>
+      <span><b>ECG, echo and video.</b> Callipers on the trace, frame-by-frame on clips.</span>
+    </li>
+    <li>
+      <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></svg></span>
+      <span><b>Labs and reports.</b> Structured values with trends, scanned reports and prescriptions on one timeline.</span>
+    </li>
+    <li>
+      <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="M12 18v-6"/><path d="m9 15 3-3 3 3"/></svg></span>
+      <span><b>Cases from a PDF.</b> Upload a case document; the platform fills the fields for your team to approve.</span>
+    </li>
+  </ul>
+</div></section>
+
+<section id="who" class="band"><div class="wrap">
+  <div class="head"><p class="eyebrow">Who it is for</p><h2>One platform, three kinds of programme</h2></div>
+  <div class="grid g3">
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg></span>
+      </div>
+      <h3>Pharma and medtech</h3>
+      <p>Run scientific case events for a therapy area under your own branding. Clinical content stays independent of promotion, and reporting follows the consent each doctor gives.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+      </div>
+      <h3>Medical colleges and hospitals</h3>
+      <p>Turn the teaching file into timed cases for students, interns and residents, with batch leaderboards and analytics for heads of department.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+      </div>
+      <h3>Societies and education providers</h3>
+      <p>Deliver grand rounds and case series to members across cities, with attendance and assessment records ready for accreditation submissions.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="insight"><div class="wrap split">
+  <div class="report" role="img" aria-label="Illustration of a post-event report showing treatment preference by years of practice">
+    <div class="report-head">
+      <h3>Treatment preference, by years of practice</h3>
+      <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
+    </div>
+    <div class="bar-row"><span>Under 5 years</span><div class="bar-track"><div class="bar" style="width:82%"></div></div></div>
+    <div class="bar-row"><span>5 to 15 years</span><div class="bar-track"><div class="bar b2" style="width:61%"></div></div></div>
+    <div class="bar-row"><span>Over 15 years</span><div class="bar-track"><div class="bar b3" style="width:44%"></div></div></div>
+    <div class="chips"><span class="chip on">Veeva</span><span class="chip">REST and webhooks</span><span class="chip">File export</span></div>
+    <p class="small">Illustrative report. Bars show layout only, not real results.</p>
+  </div>
+  <div class="stack">
+    <p class="eyebrow">Insight and integration</p>
+    <h2>From attendance counts to evidence</h2>
+    <ul class="list">
+      <li>
+        <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><rect width="4" height="7" x="7" y="10" rx="1"/><rect width="4" height="12" x="15" y="5" rx="1"/></svg></span>
+        <span><b>Live results.</b> Audience answers as charts the moment results are published.</span>
+      </li>
+      <li>
+        <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></span>
+        <span><b>Preference reports.</b> How participants would treat a case, segmented by specialty, experience and region.</span>
+      </li>
+      <li>
+        <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></span>
+        <span><b>Knowledge gaps.</b> The conditions and questions a cohort most often gets wrong.</span>
+      </li>
+      <li>
+        <span class="list-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+        <span><b>CRM connectors.</b> Sync participants and engagement to your CRM after each event, at the data-sharing level you set and with participant consent.</span>
+      </li>
+    </ul>
+  </div>
+</div></section>
+
+<section class="band"><div class="wrap">
+  <div class="head"><p class="eyebrow">Engagement</p><h2>Reasons to come back each week</h2></div>
+  <div class="grid g4">
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span>
+      </div>
+      <h3>Leaderboards</h3>
+      <p>Ranked on accuracy first and speed second, by event, specialty and career stage.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></span>
+      </div>
+      <h3>Levels and badges</h3>
+      <p>Recognition for specialty mastery and streaks, framed as professional achievement.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg></span>
+      </div>
+      <h3>Points and rewards</h3>
+      <p>An optional catalogue of educational rewards, governed by each market's rules.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="tag soon">On the roadmap</span>
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/></svg></span>
+      </div>
+      <h3>AI case tutor</h3>
+      <p>After the reveal, ask why an answer was wrong and get a reply drawn from the expert's own rationale.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="trust" class="dark"><div class="wrap">
+  <div class="head"><p class="eyebrow">Compliance by design</p><h2>Built for regulated healthcare</h2><p class="lede">Patient privacy, participant consent and editorial independence are controls in the product, not policies beside it.</p></div>
+  <div class="grid g4">
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg></span>
+      </div>
+      <h3>De-identified cases only</h3>
+      <p>Automated and manual checks run on every image and document before a case is published.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+      </div>
+      <h3>Consent-led data sharing</h3>
+      <p>Reporting is aggregate by default. Anything more needs the participant's consent.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg></span>
+      </div>
+      <h3>Independent content</h3>
+      <p>Sponsors do not set the diagnosis or the reference answer. Treatments are named generically.</p>
+    </div>
+    <div class="card">
+      <div class="card-top">
+        <span class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg></span>
+      </div>
+      <h3>Your rules, per tenant</h3>
+      <p>Data residency, retention and automatic purging are configured for each organisation and market.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="contact" class="close"><div class="wrap">
+  <div class="close-copy">
+    <h2>See a live case run end to end</h2>
+    <p class="lede">Tell us your specialty and audience, and we will walk you through a sample event.</p>
+  </div>
+  <div class="close-cta">
+    <a class="btn btn-main" href="mailto:?subject=DoctLearn%20Demo%20Request">Request a demo</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="logos"><img src="https://appcdn.goqii.com/storeimg/78608_1794911475.png" alt="GOQii HealthEngage"></div>
+      <p class="footer-desc">DoctLearn is a module of GOQii HealthEngage.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#modes">Modes</a>
+      <a href="#live">Live events</a>
+      <a href="#who">Who it is for</a>
+      <a href="#insight">Insight</a>
+      <a href="#trust">Compliance</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>DoctLearn · GOQii HealthEngage</span>
+    <span>For professional education only. Not medical advice.</span>
+  </div>
+</div></footer>
+
+<script>
+(function(){
+  var header = document.querySelector('.nav');
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('site-nav');
+
+  function setMenu(open){
+    if(!toggle || !nav) return;
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    nav.classList.toggle('open', open);
+  }
+
+  if(toggle && nav){
+    toggle.addEventListener('click', function(){
+      var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+      setMenu(!isOpen);
+    });
+
+    nav.querySelectorAll('a').forEach(function(link){
+      link.addEventListener('click', function(){
+        setMenu(false);
+      });
+    });
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        setMenu(false);
+      }
+    });
+  }
+
+  if(header){
+    var lastY = window.scrollY || 0;
+    var ticking = false;
+
+    function updateNavOnScroll(){
+      var currentY = window.scrollY || 0;
+      var menuOpen = nav && nav.classList.contains('open');
+      if(menuOpen || currentY <= 40){
+        header.classList.remove('nav-hidden');
+      }else if(currentY > lastY && currentY > 60){
+        header.classList.add('nav-hidden');
+      }else if(currentY < lastY){
+        header.classList.remove('nav-hidden');
+      }
+      lastY = currentY;
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function(){
+      if(!ticking){
+        window.requestAnimationFrame(updateNavOnScroll);
+        ticking = true;
+      }
+    }, {passive:true});
+  }
+})();
+</script>
+</body>
+</html>
